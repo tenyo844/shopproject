@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}3Dプリントショップ{% endblock %}
+
+{% block content %}
+    <section class="hero">
+        <h1>3Dプリントで作るユニークな商品</h1>
+        <p>カスタムデザインをあなたの手元に</p>
+    </section>
+    <section class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>¥{{ product.price }}</p>
+                <a href="{% url 'product_detail' product.pk %}" class="btn">詳細</a>
+            </div>
+        {% empty %}
+            <p>商品がありません。</p>
+        {% endfor %}
+    </section>
+{% endblock %}

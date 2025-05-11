@@ -1,0 +1,20 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}商品一覧 - 3Dプリントショップ{% endblock %}
+
+{% block content %}
+    <h2>商品一覧</h2>
+    <section class="product-grid">
+        {% for product in products %}
+            <div class="product-card">
+                <img src="{{ product.image.url }}" alt="{{ product.name }}">
+                <h3>{{ product.name }}</h3>
+                <p>¥{{ product.price }}</p>
+                <a href="{% url 'product_detail' product.pk %}" class="btn">詳細</a>
+            </div>
+        {% empty %}
+            <p>商品がありません。</p>
+        {% endfor %}
+    </section>
+{% endblock %}

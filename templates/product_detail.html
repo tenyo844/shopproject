@@ -1,0 +1,36 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}{{ product.name }} - 3Dプリントショップ{% endblock %}
+
+{% block content %}
+    <section class="product-detail">
+        <div class="product-image">
+            <img src="{{ product.image.url }}" alt="{{ product.name }}">
+        </div>
+        <div class="product-info">
+            <h2>{{ product.name }}</h2>
+            <p class="price">¥{{ product.price }}</p>
+            <p>{{ product.description }}</p>
+            <form method="post" action="{% url 'cart_add' product.pk %}">
+                {% csrf_token %}
+                <button type="submit" class="btn">カートに追加</button>
+            </form>
+        </div>
+    </section>
+    <section class="related-products">
+        <h3>関連商品</h3>
+        <div class="product-grid">
+            {% for related in related_products %}
+                <div class="product-card">
+                    <img src="{{ related.image.url }}" alt="{{ related.name }}">
+                    <h4>{{ related.name }}</h4>
+                    <p>¥{{ related.price }}</p>
+                    <a href="{% url 'product_detail' related.pk %}" class="btn">詳細</a>
+                </div>
+            {% empty %}
+                <p>関連商品がありません。</p>
+            {% endfor %}
+        </div>
+    </section>
+{% endblock %}

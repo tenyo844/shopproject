@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}カート - 3Dプリントショップ{% endblock %}
+
+{% block content %}
+    <h2>カート</h2>
+    {% if cart %}
+        <table class="cart-table">
+            <thead>
+                <tr>
+                    <th>商品</th>
+                    <th>数量</th>
+                    <th>価格</th>
+                    <th>合計</th>
+                    <th>削除</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for item in cart %}
+                    <tr>
+                        <td>{{ item.product.name }}</td>
+                        <td>{{ item.quantity }}</td>
+                        <td>¥{{ item.price }}</td>
+                        <td>¥{{ item.total_price }}</td>
+                        <td>
+                            <form method="post" action="{% url 'cart_remove' item.product.pk %}">
+                                {% csrf_token %}
+                                <button type="submit" class="btn btn-danger">削除</button>
+                            </form>
+                        </td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        <p class="cart-total">合計: ¥{{ cart.get_total_price }}</p>
+        <a href="{% url 'checkout' %}" class="btn btn-checkout">チェックアウト</a>
+    {% else %}
+        <p>カートは空です。</p>
+    {% endif %}
+{% endblock %}
