@@ -1,2 +1,26 @@
-.env
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# Virtualenv
 venv/
+.env
+
+# Django
+db.sqlite3
+staticfiles/
+media/
+
+# Editor
+.idea/
+.vscode/
+
+# PostgreSQL dump
+*.sql
+*.dump
+
+# OS
+.DS_Store
+Thumbs.db
